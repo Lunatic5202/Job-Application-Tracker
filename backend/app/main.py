@@ -1,21 +1,24 @@
 import logging
+import os
 from contextlib import asynccontextmanager
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
+ 
 from app.config import settings
 from app.database import DatabaseManager
 from app.middleware.error_handler import register_error_handlers
 from app.routers.api_router import api_router
-
+ 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
 )
 logger = logging.getLogger("careerx.main")
-
-
+ 
+ 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """Application lifecycle: connect to MongoDB and setup indexes on startup, disconnect on shutdown."""
@@ -28,8 +31,8 @@ async def lifespan(app: FastAPI):
     yield
     logger.info("Shutting down %s...", settings.APP_NAME)
     await DatabaseManager.disconnect()
-
-
+ 
+ 
 # Initialize FastAPI application
 app = FastAPI(
     title=settings.APP_NAME,
@@ -39,7 +42,7 @@ app = FastAPI(
     docs_url="/docs",
     redoc_url="/redoc",
 )
-
+ 
 # Configure CORS for Vite frontend
 app.add_middleware(
     CORSMiddleware,
@@ -48,15 +51,15 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
+ 
 # Register custom exception handlers matching frontend ApiErrorResponse format
 register_error_handlers(app)
-
+ 
 # Mount all API routes with common prefix /api
 app.include_router(api_router, prefix=settings.API_PREFIX)
-
-
-@app.get("/", tags=["Root"])
+ 
+ 
+@app.get("/api", tags=["Root"])
 async def root():
     """Root metadata endpoint."""
     return {
@@ -67,8 +70,19 @@ async def root():
         "healthCheck": f"{settings.API_PREFIX}/health",
         "docs": "/docs",
     }
-
-
+ 
+# Serve built frontend (frontend/dist), with SPA fallback for client-side routing
+DIST = os.path.join(os.path.dirname(__file__), "..", "..", "frontend", "dist")
+if os.path.isdir(DIST):
+    app.mount("/assets", StaticFiles(directory=os.path.join(DIST, "assets")), name="assets")
+ 
+    @app.get("/{full_path:path}", tags=["Root"])
+    async def spa(full_path: str):
+        if full_path.startswith(("api", "docs", "redoc", "assets")):
+            raise HTTPException(status_code=404)
+        return FileResponse(os.path.join(DIST, "index.html"))
+ 
+ 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(
@@ -77,3 +91,4 @@ if __name__ == "__main__":
         port=settings.PORT,
         reload=True,
     )
+ 
