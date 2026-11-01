@@ -134,3 +134,7 @@ The root package scripts orchestrate the separate frontend and FastAPI backend. 
 Do not commit `.env` files, MongoDB connection strings, Groq/API keys, uploaded resumes or other candidate data. Start from the tracked `.env.example`, supply real credentials through local environment variables or the deployment secret store, and use synthetic resumes for tests and screenshots.
 
 Before a release, run the frontend build and the backend test suite separately. A successful frontend build does not verify database connectivity, authentication, file parsing or external AI-provider availability.
+
+## License
+
+Original source code and project documentation are licensed under the [MIT License](LICENSE). Third-party libraries, datasets, fonts, media, and other separately licensed materials are excluded and remain under their respective terms.
