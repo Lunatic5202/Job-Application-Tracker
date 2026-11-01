@@ -126,3 +126,12 @@ npm run dev
   cd backend
   pytest tests/
   ```
+
+
+## Maintenance and configuration note
+
+The root package scripts orchestrate the separate frontend and FastAPI backend. The frontend build is run from `frontend/`; the API is launched from `backend/` as `app.main:app`. Keep the frontend API base URL and backend CORS origins aligned when changing local ports or deployment domains.
+
+Do not commit `.env` files, MongoDB connection strings, Groq/API keys, uploaded resumes or other candidate data. Start from the tracked `.env.example`, supply real credentials through local environment variables or the deployment secret store, and use synthetic resumes for tests and screenshots.
+
+Before a release, run the frontend build and the backend test suite separately. A successful frontend build does not verify database connectivity, authentication, file parsing or external AI-provider availability.
