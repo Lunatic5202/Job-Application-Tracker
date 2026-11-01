@@ -6,40 +6,40 @@ The repository is structured as two cleanly separated, standalone projects (`fro
 
 ---
 
-## 📁 Repository Structure
+## Repository Structure
 
 ```text
 Job-Application_Tracker/
-├── frontend/                     # 🌐 Standalone React + Vite + TypeScript Frontend
-│   ├── src/                      # Components, Pages, State, API clients
-│   ├── public/                   # Static assets & favicon
-│   ├── index.html                # Single-page application entry HTML
-│   ├── vite.config.ts            # Vite bundler configuration
-│   ├── tsconfig.json             # TypeScript configuration
-│   ├── tailwind.config.js        # Tailwind CSS design system tokens
-│   ├── .env                      # Frontend environment (VITE_API_BASE_URL)
-│   └── package.json              # Frontend-only dependencies & scripts
+├── frontend/ # Standalone React + Vite + TypeScript Frontend
+│ ├── src/ # Components, Pages, State, API clients
+│ ├── public/ # Static assets & favicon
+│ ├── index.html # Single-page application entry HTML
+│ ├── vite.config.ts # Vite bundler configuration
+│ ├── tsconfig.json # TypeScript configuration
+│ ├── tailwind.config.js # Tailwind CSS design system tokens
+│ ├── .env # Frontend environment (VITE_API_BASE_URL)
+│ └── package.json # Frontend-only dependencies & scripts
 │
-├── backend/                      # ⚡ Standalone FastAPI + MongoDB Atlas Backend
-│   ├── app/                      # Routers, Services, Repositories, Schemas
-│   │   ├── routers/              # Resumes, Auth, Jobs, Applications, Users, etc.
-│   │   ├── services/             # AI Groq Engine, Auth, Scoring services
-│   │   ├── schemas/              # Pydantic data contracts
-│   │   ├── database.py           # MongoDB connection & index managers
-│   │   └── main.py               # FastAPI application entry point
-│   ├── tests/                    # Backend automated tests
-│   ├── requirements.txt          # Python dependencies (FastAPI, Motor, Groq, PyPDF, etc.)
-│   └── .env                      # Backend environment (MongoDB URI, Groq API Key)
+├── backend/ # Standalone FastAPI + MongoDB Atlas Backend
+│ ├── app/ # Routers, Services, Repositories, Schemas
+│ │ ├── routers/ # Resumes, Auth, Jobs, Applications, Users, etc.
+│ │ ├── services/ # AI Groq Engine, Auth, Scoring services
+│ │ ├── schemas/ # Pydantic data contracts
+│ │ ├── database.py # MongoDB connection & index managers
+│ │ └── main.py # FastAPI application entry point
+│ ├── tests/ # Backend automated tests
+│ ├── requirements.txt # Python dependencies (FastAPI, Motor, Groq, PyPDF, etc.)
+│ └── .env # Backend environment (MongoDB URI, Groq API Key)
 │
-├── package.json                  # Root orchestrator scripts (dev:all, dev:frontend, dev:backend)
-├── start-dev.bat                 # 🚀 Windows double-click dual launcher
-├── start-dev.ps1                 # 🚀 PowerShell dual launcher
-└── README.md                     # Documentation
+├── package.json # Root orchestrator scripts (dev:all, dev:frontend, dev:backend)
+├── start-dev.bat # Windows double-click dual launcher
+├── start-dev.ps1 # PowerShell dual launcher
+└── README.md # Documentation
 ```
 
 ---
 
-## 🚀 Quick Start Guide
+## Quick Start Guide
 
 ### Option 1: Run Everything Together from Root (Recommended)
 
@@ -81,7 +81,7 @@ npm run dev
 
 ---
 
-## 🛠️ Root Orchestrator Scripts
+## Root Orchestrator Scripts
 
 | Command | Action |
 | :--- | :--- |
@@ -93,40 +93,39 @@ npm run dev
 
 ---
 
-## 🔑 Environment Configuration
+## Environment Configuration
 
 - **Frontend (`frontend/.env`)**:
-  ```env
-  VITE_API_BASE_URL=http://localhost:8000/api
-  ```
+ ```env
+ VITE_API_BASE_URL=http://localhost:8000/api
+ ```
 
 - **Backend (`backend/.env`)**:
-  ```env
-  ENVIRONMENT=development
-  PORT=8000
-  MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.ol1xg9x.mongodb.net/?appName=Cluster0
-  MONGODB_DB_NAME=careerx_db
-  GROQ_API_KEY=gsk_...
-  GROQ_MODEL=openai/gpt-oss-120b
-  CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173
-  ```
+ ```env
+ ENVIRONMENT=development
+ PORT=8000
+ MONGODB_URI=mongodb+srv://<username>:<password>@cluster0.ol1xg9x.mongodb.net/?appName=Cluster0
+ MONGODB_DB_NAME=careerx_db
+ GROQ_API_KEY=gsk_...
+ GROQ_MODEL=openai/gpt-oss-120b
+ CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000,http://localhost:5173
+ ```
 
 ---
 
-## 🧪 Testing & Verification
+## Testing & Verification
 
 - **Frontend Build Verification**:
-  ```bash
-  cd frontend
-  npm run build
-  ```
+ ```bash
+ cd frontend
+ npm run build
+ ```
 
 - **Backend Tests**:
-  ```bash
-  cd backend
-  pytest tests/
-  ```
-
+ ```bash
+ cd backend
+ pytest tests/
+ ```
 
 ## Maintenance and configuration note
 
