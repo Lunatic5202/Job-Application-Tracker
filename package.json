@@ -15,7 +15,7 @@
     "install:all": "npm install && npm run install:frontend && npm run install:backend"
   },
   "dependencies": {
-    "@hookform/resolvers": "^3.9.1",
+    "@hookform/resolvers": "^6.0.2",
     "@monaco-editor/react": "^4.6.0",
     "axios": "^1.7.9",
     "clsx": "^2.1.1",
